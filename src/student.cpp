@@ -67,6 +67,11 @@ using namespace std;
 //     preorder(&satu);      // mencetak:  42
 // =============================================================================
 void preorder(const Node* root) {
+    if(root != nullptr){
+        cout << root->data << " ";
+        preorder(root->left);
+        preorder(root->right);
+    }
 }
 
 // =============================================================================
@@ -90,6 +95,11 @@ void preorder(const Node* root) {
 //     inorder(NULL);     // tidak mencetak apa pun
 // =============================================================================
 void inorder(const Node* root) {
+    if(root != nullptr){
+        inorder(root->left);
+        cout << root->data << " ";
+        inorder(root->right);
+    }
 }
 
 // =============================================================================
@@ -114,6 +124,11 @@ void inorder(const Node* root) {
 //     postorder(NULL);   // tidak mencetak apa pun
 // =============================================================================
 void postorder(const Node* root) {
+    if(root != nullptr){
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->data << " ";
+    }
 }
 
 // =============================================================================
@@ -176,8 +191,29 @@ void clear(Node*& root) {
 //      ╱                         (hanya node 3; node 5 dan 4 masing-masing
 //     3                           masih punya satu cabang)
 // =============================================================================
-int jumlahDaun(const Node* root) {
+int hitungDaun(const Node* root, int& count){
+    if(root->left != nullptr && root->right != nullptr){
+        if(root->left != nullptr){
+            hitungDaun(root->left, count);
+        }
+        if(root->right != nullptr){
+            hitungDaun(root->right, count);
+        }
+    }
+    else{
+        count++;
+        return count;
+    }
     return 0;
+}
+
+int jumlahDaun(const Node* root) {
+    int count = 0;
+    if(root == nullptr){
+        return 0;
+    }
+    hitungDaun(root, count);
+    return count;
 }
 
 // =============================================================================
